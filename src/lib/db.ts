@@ -16,7 +16,8 @@ class NeonDB {
 
   async query<T = Record<string, unknown>>(sql: string, params: unknown[] = []): Promise<T[]> {
     const pgSql = convertPlaceholders(sql)
-    const rows = await this.sql(pgSql, params)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rows = await (this.sql as any)(pgSql, params)
     return rows as T[]
   }
 
@@ -27,7 +28,8 @@ class NeonDB {
 
   async run(sql: string, params: unknown[] = []): Promise<{ lastInsertRowid: number | bigint; changes: number }> {
     const pgSql = convertPlaceholders(sql)
-    await this.sql(pgSql, params)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (this.sql as any)(pgSql, params)
     return { lastInsertRowid: 0, changes: 1 }
   }
 }
