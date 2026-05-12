@@ -75,14 +75,16 @@ export const db = {
     if (process.env.DATABASE_URL) {
       return getNeonDB().query<T>(sql, params)
     }
-    return (await getLocalDB()).query<T>(sql, params)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (await getLocalDB() as any).query(sql, params) as Promise<T[]>
   },
 
   async queryOne<T = Record<string, unknown>>(sql: string, params: unknown[] = []): Promise<T | null> {
     if (process.env.DATABASE_URL) {
       return getNeonDB().queryOne<T>(sql, params)
     }
-    return (await getLocalDB()).queryOne<T>(sql, params)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (await getLocalDB() as any).queryOne(sql, params) as Promise<T | null>
   },
 
   async run(sql: string, params: unknown[] = []): Promise<{ lastInsertRowid: number | bigint; changes: number }> {
