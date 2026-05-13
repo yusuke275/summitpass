@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from '@clerk/nextjs'
+import { jaJP } from '@clerk/localizations'
 import { Geist } from "next/font/google";
 import { Toaster } from '@/components/ui/sonner'
 import "./globals.css";
@@ -23,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={jaJP}>
       <html lang="ja" suppressHydrationWarning>
         <body className={`${geist.className} bg-slate-50 text-slate-900`}>
           {children}
